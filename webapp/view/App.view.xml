@@ -1,0 +1,13 @@
+<mvc:View
+  controllerName="ui5.walkthrough.controller.App"
+  xmlns:mvc="sap.ui.core.mvc"
+  displayBlock="true"
+  xmlns="sap.m">
+  <Shell>
+    <App id="app">
+      <pages>
+        <mvc:XMLView viewName="ui5.walkthrough.view.Overview"/>
+      </pages>
+    </App>
+  </Shell>
+</mvc:View>

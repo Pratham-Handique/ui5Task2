@@ -1,0 +1,75 @@
+{
+  "_version": "1.30.0",
+  "sap.app": {
+    "id": "ui5.walkthrough",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": { "version": "1.0.0" },
+    "dataSources": {
+      "northwind": {
+        "uri": "/V2/Northwind/Northwind.svc/",
+        "type": "OData",
+        "settings": { "odataVersion": "2.0" }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {},
+    "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "ui5.walkthrough.view.App",
+      "type": "XML",
+      "id": "app"
+    },
+    "dependencies": {
+      "libs": {
+        "sap.ui.fl": {},
+        "sap.viz": {},
+        "sap.ui.layout": {},
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.f": {}
+      }
+    },
+    "models": {
+      "": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "dataSource": "northwind",
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "useBatch": false
+        }
+      },
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ui5.walkthrough.i18n.i18n",
+          "supportedLocales": [""],
+          "fallbackLocale": ""
+        }
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "ui5.walkthrough.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "bypassed": { "target": "notFound" }
+      },
+      "routes": [
+        { "pattern": "", "name": "overview", "target": "overview" },
+        { "pattern": "Detail/{OrderID}", "name": "detail", "target": "detail" }
+      ],
+      "targets": {
+        "overview": { "viewName": "Overview", "viewLevel": 1,"viewId": "Overview" },
+        "detail": { "viewName": "Detail", "viewLevel": 2 },
+        "notFound": { "viewName": "NotFound", "viewLevel": 1 }
+      }
+    }
+  }
+}

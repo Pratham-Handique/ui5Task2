@@ -1,0 +1,24 @@
+[
+  {
+    "OrderID": 10248,
+    "OrderDate": "1996-07-04T00:00:00",
+    "ShipCountry": "France",
+    "Freight": 32.38,
+    "CustomerID": "VINET",
+    "Customer": {
+      "CustomerID": "VINET",
+      "CompanyName": "Vins et alcools Chevalier"
+    }
+  },
+  {
+    "OrderID": 10249,
+    "OrderDate": "1996-07-05T00:00:00",
+    "ShipCountry": "Germany",
+    "Freight": 11.61,
+    "CustomerID": "TOMSP",
+    "Customer": {
+      "CustomerID": "TOMSP",
+      "CompanyName": "Toms Spezialitäten"
+    }
+  }
+]

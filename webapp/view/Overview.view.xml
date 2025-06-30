@@ -1,0 +1,116 @@
+<mvc:View
+    controllerName="ui5.walkthrough.controller.Overview"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:vm="sap.ui.fl.variants"
+    xmlns:columnmenu="sap.m.table.columnmenu"
+    xmlns:dnd="sap.ui.core.dnd"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    displayBlock="true">
+
+    <Page id="overviewPage" title="{i18n>overviewTitle}">
+
+        <Table
+            id="ordersTable"
+            sticky="ColumnHeaders,HeaderToolbar"
+            growing="true"
+            growingScrollToLoad="false"
+            popinLayout="GridSmall"
+            autoPopinMode="true"
+            items="{ 
+                path: '/Orders',
+                parameters: {
+                    expand: 'Customer'
+                }
+            }">
+            <headerToolbar>
+                <OverflowToolbar>
+                    <Title id="ordersTitle" text="{i18n>orders}" level="H2"/>
+                    <ToolbarSpacer/>
+                    <SearchField
+                        id="orderSearchField"
+                        width="20rem"
+                        placeholder="{i18n>searchPlaceholder}"
+                        liveChange="onSearchOrders"/>
+                    <vm:VariantManagement id="p13nVm" for="ordersTable"/>
+                    <Button icon="sap-icon://action-settings" press="openPersoDialog" tooltip="Settings"/>
+                </OverflowToolbar>
+            </headerToolbar>
+
+            <infoToolbar>
+                <OverflowToolbar id="filterInfo" visible="false" design="Info" active="true" press="onFilterInfoPress">
+                    <Text id="filterInfoText" wrapping="false" text="Table filter active"/>
+                    <ToolbarSpacer/>
+                    <Button tooltip="Remove All Filters" icon="sap-icon://decline" type="Transparent" press="onClearFilterPress"/>
+                </OverflowToolbar>
+            </infoToolbar>
+
+            <dependents>
+                <plugins:ColumnResizer columnResize="onColumnResize"/>
+                <columnmenu:Menu id="menu" beforeOpen="beforeOpenColumnMenu" showTableSettingsButton="true" tableSettingsPressed="openPersoDialog">
+                    <columnmenu:QuickSort change="onSort">
+                        <columnmenu:items>
+                            <columnmenu:QuickSortItem/>
+                        </columnmenu:items>
+                    </columnmenu:QuickSort>
+                    <columnmenu:QuickGroup change="onGroup">
+                        <columnmenu:items>
+                            <columnmenu:QuickGroupItem/>
+                        </columnmenu:items>
+                    </columnmenu:QuickGroup>
+                </columnmenu:Menu>
+            </dependents>
+
+            <dragDropConfig>
+                <dnd:DragDropInfo sourceAggregation="columns" targetAggregation="columns" dropPosition="Between" drop="onColumnMove"/>
+            </dragDropConfig>
+
+            <columns>
+                <Column app:p13nKey="OrderID_col" headerMenu="menu">
+                    <header>
+                        <Text text="{i18n>orderID}"/>
+                    </header>
+                </Column>
+                <Column app:p13nKey="Customer_col" headerMenu="menu">
+                    <header>
+                        <Text text="{i18n>customerName}"/>
+                    </header>
+                </Column>
+                <Column app:p13nKey="OrderDate_col" headerMenu="menu">
+                    <header>
+                        <Text text="{i18n>orderDate}"/>
+                    </header>
+                </Column>
+                <Column app:p13nKey="ShipCountry_col" headerMenu="menu">
+                    <header>
+                        <Text text="{i18n>shipCountry}"/>
+                    </header>
+                </Column>
+                <Column app:p13nKey="Freight_col" headerMenu="menu" hAlign="End">
+                    <header>
+                        <Text text="{i18n>freight}"/>
+                    </header>
+                </Column>
+            </columns>
+
+            <items>
+                <ColumnListItem type="Navigation" press="onRowPress">
+                    <cells>
+                        <Text text="{OrderID}"/>
+                        <Text text="{Customer/CompanyName}"/>
+                        <Text text="{
+                            path: 'OrderDate',
+                            type: 'sap.ui.model.type.Date',
+                            formatOptions: { style: 'medium' }
+                        }"/>
+                        <Text text="{ShipCountry}"/>
+                        <ObjectNumber number="{Freight}" unit="USD"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+
+        </Table>
+
+    </Page>
+</mvc:View>

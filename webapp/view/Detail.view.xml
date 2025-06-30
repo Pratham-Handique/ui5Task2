@@ -1,0 +1,84 @@
+<mvc:View
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:viz="sap.viz.ui5.controls"
+  xmlns:viz.data="sap.viz.ui5.data"
+  xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+  controllerName="ui5.walkthrough.controller.Detail"
+  displayBlock="true">
+
+  <Page
+    id="detailPage"
+    title="Order Detail"
+    showNavButton="true"
+    navButtonPress="onNavBack">
+
+    <VBox class="sapUiSmallMargin">
+      <!-- Panel with FlexBox layout -->
+      <Panel
+        headerText="Order Summary"
+        expandable="true"
+        expanded="true"
+        class="sapUiResponsiveMargin"
+        expand="onPanelToggle">
+
+        <FlexBox direction="Column" class="sapUiSmallMargin" renderType="Div">
+          <HBox><Text text="Customer: " /><Text text="{Customer/CompanyName}" /></HBox>
+          <HBox><Text text="Order ID: " /><Text text="{OrderID}" /></HBox>
+          <HBox><Text text="Freight: " /><Text text="{Freight}" /><Text text=" USD" /></HBox>
+
+          <HBox>
+            <Text text="Order Date: " />
+            <Text text="{path: 'OrderDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' }}" />
+          </HBox>
+          <HBox>
+            <Text text="Required Date: " />
+            <Text text="{path: 'RequiredDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' }}" />
+          </HBox>
+          <HBox>
+            <Text text="Shipped Date: " />
+            <Text text="{path: 'ShippedDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' }}" />
+          </HBox>
+          <HBox>
+            <Text text="Ship Country: " />
+            <Text text="{ShipCountry}" />
+          </HBox>
+          <HBox>
+            <Text text="Ship Address: " />
+            <Text text="{ShipAddress}" />
+            <Text text=", " />
+            <Text text="{ShipCity}" />
+          </HBox>
+        </FlexBox>
+      </Panel>
+
+      <!-- Viz Chart always visible -->
+      <VBox class="sapUiSmallMarginTop">
+        <Title text="Order Details - Quantity per Product" level="H3"/>
+        <viz:VizFrame
+          id="orderChart"
+          width="100%"
+          height="400px"
+          uiConfig="{applicationSet:'fiori'}"
+          vizType="column">
+          <viz:dataset>
+            <viz.data:FlattenedDataset data="{Order_Details}">
+              <viz.data:dimensions>
+                <viz.data:DimensionDefinition name="Product" value="{Product/ProductName}" />
+              </viz.data:dimensions>
+              <viz.data:measures>
+                <viz.data:MeasureDefinition name="Quantity" value="{Quantity}" />
+              </viz.data:measures>
+            </viz.data:FlattenedDataset>
+          </viz:dataset>
+          <viz:feeds>
+            <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Quantity"/>
+            <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Product"/>
+          </viz:feeds>
+        </viz:VizFrame>
+      </VBox>
+
+    </VBox>
+
+  </Page>
+</mvc:View>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Unit Tests</title>
+    <script
+      id="sap-ui-bootstrap"
+      src="https://ui5.sap.com/resources/sap-ui-core.js"
+      data-sap-ui-theme="sap_horizon"
+      data-sap-ui-resourceroots='{
+        "ui5.walkthrough": "",
+        "test.unit": "test/unit"
+      }'
+      data-sap-ui-onInit="module:test/unit/allTests"
+      data-sap-ui-async="true"
+      data-sap-ui-preload="async"
+      data-sap-ui-modules="sap/ui/thirdparty/qunit, sap/ui/qunit/qunit-css"
+    ></script>
+   </head>
+  <body class="sapUiBody">
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+  </body>
+</html>
